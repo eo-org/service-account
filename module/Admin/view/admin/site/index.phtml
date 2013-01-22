@@ -1,0 +1,37 @@
+<table class='datalist'>
+	<thead class='datalist-head'>
+		<tr class='title-row'>
+			<th class='s-index' s-index='globalSiteId'>GlobalSiteId</th>
+			<th>Domain Name</th>
+			<th></th>
+		</tr>
+		<tr class='search-row'>
+			<th><input class='q-index' q-index='globalSiteId' type='text' name='' value='' /></th>
+			<th><input class='q-index' q-index='domainName' type='text' name='' value='' /></th>
+			<th><div class='query-invoker' class='button'>Search</div></th>
+		</tr>
+	</thead>
+	<tbody class='datalist-body'>
+	</tbody>
+	<tfoot class='datalist-foot'>
+		<tr><td id='datalist-paginator' colspan='3'></td></tr>
+	</tfoot>
+</table>
+
+<script>
+	window.restUrl = '/adminrest/adminrest-site.json';
+	window.XRequestHeader = {"X-Org-Code": "<?php echo $this->orgCode?>"};
+</script>
+
+<script type='text/template' id='data-row'>
+<td>
+	{{data.globalSiteId}}
+</td>
+<td>
+	{{data.domainString}}
+</td>
+<td></td>
+</script>
+
+
+<script data-main="<?php echo $this->envConfig('extUrl')?>/app/data" src="<?php echo $this->envConfig('extUrl')?>/require-jquery.js"></script>
