@@ -12,7 +12,7 @@ return array(
     			'options' => array(
     				'route' => '/sso[/:action][.:format]',
     				'constraints' => array(
-    					'action' => '[a-z]*',
+    					'action' => '[a-z-]*',
     					'format' => '(json|xml)'
     				),
     				'defaults' => array(

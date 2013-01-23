@@ -2,10 +2,9 @@
 namespace Sso\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\View\Model\ViewModel, Zend\View\Model\JsonModel;
 use Zend\Json\Json;
-use Sso\Form\Index\LoginForm;
-use Sso\Validator, Sso\RemoteUserCookie;
+use Sso\Form\Index\LoginForm, Sso\Validator, Sso\RemoteUserCookie;
 use Account\Document\Token;
 
 class IndexController extends AbstractActionController
@@ -124,5 +123,25 @@ class IndexController extends AbstractActionController
 			$this->getResponse()->setStatusCode(403);
 			return array();
 		}
+    }
+    
+    public function siteInfoAction()
+    {
+    	$siteId = $this->params()->fromQuery('siteId');
+    	
+    	$dm = $this->documentManager();
+    	$doc = $dm->getRepository('Account\Document\Site')->findOneById($siteId);
+    	if(is_null($doc)) {
+    		$doc = $dm->getRepository('Account\Document\Site')->findOneByRemoteSiteId($siteId);
+    	}
+    	$result = array();
+    	if(is_null($doc)) {
+    		$result['errMsg'] = 'site not found with id'. $siteId;
+    		$result['result'] = 'fail';
+    	} else {
+    		$result['data'] = $doc->toArray();
+    		$result['result'] = 'success';
+    	}
+    	return new JsonModel($result);
     }
 }
