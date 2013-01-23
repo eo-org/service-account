@@ -68,7 +68,6 @@ class IndexController extends AbstractActionController
     	$form = new LoginForm();
     	$errorMsg = array();
     	if($this->getRequest()->isPost()) {
-    		
     		$postData = $this->getRequest()->getPost();
     		$form->setData($postData);
     		if($form->isValid()) {
@@ -79,8 +78,8 @@ class IndexController extends AbstractActionController
 	    			$newToken = new Token();
 		    		$newToken->setFromArray(array(
 		    			"token" => $token,
-		    			"userId" => $csr->getUserId(),
-		    			"userData" => $csr->getUserData()
+		    			"userId" => $cookieData['userId'],
+		    			"userData" => $cookieData['userData']
 		    		));
 		    		$dm->persist($newToken);
 		    		$dm->flush();
