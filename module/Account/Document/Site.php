@@ -29,7 +29,7 @@ class Site extends AbstractDocument
 	protected $domains = array();
 	
 	/** @ODM\Field(type="boolean")  */
-	protected $isActive;
+	protected $active;
 	
 	public function addDomain($domainDocument)
 	{

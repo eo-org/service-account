@@ -50,7 +50,7 @@ class SiteController extends AbstractActionController
 		$siteDoc->setFromArray(array(
 			'organizationCode' => $orgCode,
 			'globalSiteId' => $newGlobalSiteId,
-			'isActive' => true,
+			'active' => true,
 		));
 		$siteDoc->addDomain($domainDoc);
 		$dm->persist($siteDoc);

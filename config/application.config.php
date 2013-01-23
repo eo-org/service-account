@@ -4,6 +4,7 @@ return array(
     	'DoctrineMongo',
 		'Application',
     	'Admin',
+    	'Sso',
     	'Rest'
     ),
     'module_listener_options' => array(

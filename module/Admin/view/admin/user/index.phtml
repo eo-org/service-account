@@ -2,19 +2,21 @@
 	<thead class='datalist-head'>
 		<tr class='title-row'>
 			<th class='s-index' s-index='_id' style='width: 165px;'>ID</th>
-			<th class='s-index' s-index='loginName' style='width: 485px;'>用户名</th>
+			<th class='s-index' s-index='loginName'>用户名</th>
+			<th>用户密码</th>
 			<th></th>
 		</tr>
 		<tr class='search-row'>
 			<th></th>
 			<th><input class='q-index' q-index='loginName' type='text' name='' value='' /></th>
+			<th></th>
 			<th><div class='query-invoker' class='button'>Search</div></th>
 		</tr>
 	</thead>
 	<tbody class='datalist-body'>
 	</tbody>
 	<tfoot class='datalist-foot'>
-		<tr><td id='datalist-paginator' colspan='3'>
+		<tr><td id='datalist-paginator' colspan='4'>
 		</td></tr>
 	</tfoot>
 </table>
@@ -30,6 +32,9 @@
 </td>
 <td>
 	{{data.loginName}}
+</td>
+<td>
+	{{data.password}}
 </td>
 <td>
 	<a href='/admin/admin-user/edit/id/{{data.id}}'>编辑</a>

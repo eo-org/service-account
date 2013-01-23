@@ -6,24 +6,21 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /** 
  * @ODM\Document(
- * 		collection="remote_user"
+ * 		collection="counter"
  * )
  * 
  * */
-class User extends AbstractDocument
+class Token extends AbstractDocument
 {
 	/** @ODM\Id */
 	protected $id;
 
 	/** @ODM\Field(type="string")  */
-	protected $orgCode;
+	protected $token;
 	
 	/** @ODM\Field(type="string")  */
-	protected $userType;
+	protected $userId;
 	
 	/** @ODM\Field(type="string")  */
-	protected $loginName;
-	
-	/** @ODM\Field(type="string")  */
-	protected $password;
+	protected $userData;
 }
