@@ -1,3 +1,15 @@
+<h2>网站</h2>
+<ul style='padding: 15px;'>
+<?php foreach($this->siteDocs as $siteDoc) {?>
+<li><?php echo $siteDoc->getGlobalSiteId()?></li>
+<?php }?>
+</ul>
 
+<h2>用户</h2>
+<ul style='padding: 15px;'>
+<?php foreach($this->userDocs as $userDoc) {?>
+<li><?php echo $userDoc->getLoginName()?></li>
+<?php }?>
+</ul>
 
 <?php echo $this->singleForm($this->form, array()); ?>
