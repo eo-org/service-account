@@ -25,33 +25,81 @@ class UserController extends AbstractActionController
 		);
 	}
 	
-	public function editAction()
+	public function createAction()
 	{
-		$id = $this->params('id');
-		$dm = $this->documentManager();
-		
-		$doc = $dm->getRepository('Account\Document\Org')->find($id);
-		if(is_null($doc)) {
-			$doc = new Org();
+		$orgCode = $this->params('orgCode');
+		if(empty($orgCode)) {
+			throw new \Exception('org code is empty!');
 		}
-		
 		$form = new EditForm();
-		$form->setData($doc->toArray());
 		if($this->getRequest()->isPost()) {
+			$user = new User();
 			$postData = $this->getRequest()->getPost();
-        	$form->setData($postData);
-        	if($form->isValid()) {
-				$doc->setFromArray($form->getData());
-				$dm->persist($doc);
+			$postData['orgCode'] = $orgCode;
+			$postData['userType'] = 'website-admin';
+			$postData['password'] = rand(111111, 999999);
+			$form->setInputFilter($user->getInputFilter());
+			$form->setData($postData);
+			if($form->isValid()) {
+				$validData = $form->getData();
+				$user->exchangeArray($validData);
+				$dm = $this->documentManager();
+				$dm->persist($user);
 				$dm->flush();
-				$this->flashMessenger()->addMessage('机构信息 已经成功保存');
-				return $this->redirect()->toRoute('admin/actionroutes/wildcard', array('action' => 'index', 'controller' => 'admin-org'));
+				return $this->redirect()->toRoute(
+					'admin/actionroutes/wildcard',
+					array('action' => 'index', 'controller' => 'admin-user', 'orgCode' => $orgCode)
+				);
+			} else {
+				$errorMsg = $form->getMessages();
 			}
 		}
 		
-		$this->actionTitle = "机构管理";
+		$this->actionTitle = "添加新用户";
 		$this->actionMenu = array('save');
+		return array(
+			'form' => $form
+		);
+	}
+	
+	public function editAction()
+	{
+		$id = $this->params('id');
+		if(empty($id)) {
+			throw new \Exception('user id is empty!');
+		}
 		
+		$dm = $this->documentManager();
+		$user = $dm->getRepository('Account\Document\User')->findOneById($id);
+		if(empty($user)) {
+			throw new \Exception('user not found!');
+		}
+		$orgCode = $user->getOrgCode();
+		 
+		$form = new EditForm();
+		$oldData = $user->getArrayCopy();
+		$form->setData($oldData);
+		if($this->getRequest()->isPost()) {
+			$postData = $this->getRequest()->getPost();
+			$form->setInputFilter($user->getInputFilter());
+			$oldData['loginName'] = $postData['loginName'];
+			$form->setData($oldData);
+			if($form->isValid()) {
+				$validData = $form->getData();
+				$user->exchangeArray($validData);
+				$dm->persist($user);
+				$dm->flush();
+				return $this->redirect()->toRoute(
+					'admin/actionroutes/wildcard',
+					array('action' => 'index', 'controller' => 'admin-user', 'orgCode' => $orgCode)
+				);
+			} else {
+				$errorMsg = $form->getMessages();
+			}
+		}
+		
+		$this->actionTitle = "修改用户设定";
+		$this->actionMenu = array('save');
 		return array(
 			'form' => $form
 		);

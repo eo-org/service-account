@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Form\Org;
+namespace Admin\Form\User;
 
 use Zend\Form\Form;
 
@@ -7,19 +7,12 @@ class EditForm extends Form
 {
     public function __construct()
     {
-    	parent::__construct('org-edit');
+    	parent::__construct('user-edit');
     	
     	$this->add(array(
-    		'name' => 'orgName',
+    		'name' => 'loginName',
     		'attributes' => array('type' => 'text'),
-    		'options' => array('label' => '机构名')
+    		'options' => array('label' => '用户登录邮箱')
     	));
-    }
-    
-    public function getTabSettings()
-    {
-    	return array(
-    		array('handleLabel' => '基本信息', 'content' => array('orgName')),
-    	);
     }
 }

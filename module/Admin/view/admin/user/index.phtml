@@ -1,16 +1,9 @@
 <table class='datalist'>
 	<thead class='datalist-head'>
 		<tr class='title-row'>
-			<th class='s-index' s-index='_id' style='width: 165px;'>ID</th>
 			<th class='s-index' s-index='loginName'>用户名</th>
 			<th>用户密码</th>
 			<th></th>
-		</tr>
-		<tr class='search-row'>
-			<th></th>
-			<th><input class='q-index' q-index='loginName' type='text' name='' value='' /></th>
-			<th></th>
-			<th><div class='query-invoker' class='button'>Search</div></th>
 		</tr>
 	</thead>
 	<tbody class='datalist-body'>
@@ -27,9 +20,6 @@
 </script>
 
 <script type='text/template' id='data-row'>
-<td>
-	{{data.id}}
-</td>
 <td>
 	{{data.loginName}}
 </td>
