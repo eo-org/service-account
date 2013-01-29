@@ -8,9 +8,9 @@ class EnvConfig
 	public $libUrl;
 	public $extUrl;
 	
-	public function __construct()
+	public function __construct($config)
 	{
-		$this->libUrl = 'http://lib.eo.test/cms/v3';
-		$this->extUrl = 'http://lib.eo.test/ext';
+		$this->libUrl = 'http://'.$config['fileServer'].'/cms/'.$config['libVersion'];
+		$this->extUrl = 'http://'.$config['fileServer'].'/ext';
 	}
 }

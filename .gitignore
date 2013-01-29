@@ -163,3 +163,4 @@ pip-log.txt
 ## Config
 #############
 .htaccess
+env.config.php
