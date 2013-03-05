@@ -12,8 +12,6 @@ class RemoteUserCookie
 	{
 		$loginName = $post['loginName'];
 		$password = $post['password'];
-	  
-		//$ru = App_Factory::_m('RemoteUser');
 		
 		$userDoc = $dm->createQueryBuilder('Account\Document\User')
 			->field('loginName')->equals($loginName)
@@ -26,11 +24,18 @@ class RemoteUserCookie
 			$userType = $userDoc->getUserType();
 			$orgCode = $userDoc->getOrgCode();
 			$loginName = $userDoc->getLoginName();
+			$siteIds = array();
+			$siteDocs = $dm->getRepository('Account\Document\Site')->findByOrganizationCode($orgCode);
+			foreach($siteDocs as $siteDoc) {
+				$siteIds[] = $siteDoc->getId();
+			}
+			
 			$startTimeStamp = time();
 			$userData = Json::encode(array(
 				'userType' => $userType,
 				'orgCode' => $orgCode,
-				'loginName' => $loginName
+				'loginName' => $loginName,
+				'siteIds' => $siteIds
 			));
 			$cookieData = array(
 				'userId' => $userId,
