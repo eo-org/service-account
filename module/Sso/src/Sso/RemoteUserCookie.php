@@ -28,6 +28,9 @@ class RemoteUserCookie
 			$siteDocs = $dm->getRepository('Account\Document\Site')->findByOrganizationCode($orgCode);
 			foreach($siteDocs as $siteDoc) {
 				$siteIds[] = $siteDoc->getId();
+				if($siteDoc->getRemoteSiteId() != null) {
+					$siteIds[] = $siteDoc->getRemoteSiteId();
+				}
 			}
 			
 			$startTimeStamp = time();
